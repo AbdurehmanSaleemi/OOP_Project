@@ -48,7 +48,7 @@ public:
         }
     }
 
-    User(int id, std::string fname, std)
+    //User(int id, std::string fname, std)
 };
 
 int main() {
