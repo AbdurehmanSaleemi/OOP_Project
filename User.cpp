@@ -1,30 +1,56 @@
 #include <iostream>
 
-class User{
-    protected:
-    unsigned int uniqueID;
-    std::string userName;
+class Friends {
+private:
+    std::string friendID;
 
-    public:
-    User(){
-        uniqueID = 0;
+public:
+    Friends(){
+        friendID = "";
     }
-
-    User(unsigned int id, std::string _name){
-        uniqueID = id;
-        userName = _name;
+    Friends(std::string ID){
+        friendID = ID;
     }
-
-    void setUniqueID(unsigned int id){
-        uniqueID = id;
+    void setFriendId(std::string id){
+        friendID = id;
     }
-    void setUserName(std::string _name){
-        userName = _name;
-    }
-    unsigned int getUniqueID(){
-        return uniqueID;
-    }
-    std::string getUserName(){
-        return userName;
+    std::string getFriend(){
+        return friendID;
     }
 };
+
+class Page {
+private:
+    std::string pageTitle;
+    char pagePost[50];
+};
+
+class User{
+private:
+    static int totalUsers;
+    std::string userID;
+    std::string userFirstName;
+    std::string userLastName;
+    Friends** userFriends;
+    Page** userLikedPages;
+
+public:
+    int totalUserFriends = 0;
+    int totalLikedPages = 0;
+    User() {
+        userFriends = new Friends * [totalUserFriends];
+        for (int i = 0; i < totalUserFriends; i++){
+            userFriends[i] = new Friends[totalUserFriends];
+        }
+        userLikedPages = new Page * [totalLikedPages];
+        for (int i = 0; i < totalLikedPages; i++){
+            userFriends[i] = new Friends[totalLikedPages];
+        }
+    }
+
+    User(int id, std::string fname, std)
+};
+
+int main() {
+    return 0;
+}
