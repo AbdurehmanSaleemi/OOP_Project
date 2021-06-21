@@ -4,177 +4,179 @@
 
 class Friends {
 private:
-    char* friendID;
+    std::string friendID;
 
 public:
-    void init() {
-        friendID = new char[5];
-    }
     Friends() {
-        init();
+        friendID = "";
     }
-    Friends(char*& ID) {
-        init();
-        for (int i = 0; i < 10; i++)
-        {
-            friendID[i] = ID[i];
-        }
+    Friends(std::string ID) {
+        friendID = ID;
     }
-    void setFriendId(char*& id) {
-        init();
-        for (int i = 0; i < 10; i++)
-        {
-            friendID[i] = id[i];
-        }
+    void setFriendId(std::string id) {
+        friendID = id;
     }
-    char* getFriend() {
+    std::string getFriend() {
         return friendID;
     }
 };
 
 class Page {
 private:
-    char* pageID;
-    char* pageTitle;
-    char* pagePost;
+    std::string pageID;
+    std::string pageTitle;
+    std::string pagePost;
 
 public:
-    void init() {
-        pageID = new char[5];
-        pageTitle = new char[50];
-        pagePost = new char[70];
-    }
     Page() {
-        init();
+        pageID = "";
+        pageTitle = "";
+        pagePost = "";
     }
-    Page(char* id, char* title, char* post) {
-        init();
-        // strcpy_s(pageID, 5, id);
-        // strcpy_s(pageTitle, 50, title);
-        // strcpy_s(pagePost, 70, post);
+    Page(std::string id, std::string title, std::string post) {
+        pageID = id;
+        pageTitle = title;
+        pagePost = post;
     }
-    void setID(char*& id) {
-        //strcpy_s(pageID, 5, id);
+    void setID(std::string id) {
+        pageID = id;
     }
-    void setPageData(char*& id, char*& title, char*& post) {
-        init();
-        // strcpy_s(pageID, 5, id);
-        // strcpy_s(pageTitle, 50, title);
-        // strcpy_s(pagePost, 70, post);
+    void setPageData(std::string id, std::string title, std::string post) {
+        pageID = id;
+        pageTitle = title;
+        pagePost = post;
     }
-    char* getPageID() {
+    std::string getPageID() {
         return pageID;
     }
-    char* getPageTitle() {
+    std::string getPageTitle() {
         return pageTitle;
     }
-    char* getPagePost() {
+    std::string getPagePost() {
         return pagePost;
     }
 };
 
 class User {
 private:
-    char* userID;
-    char* firstName;
-    char* LastName;
+    std::string userID;
+    std::string firstName;
+    std::string LastName;
     Friends** userFriends;
     Page** userLikedPage;
 
 public:
     void init() {
-        userID = new char[3];
-        firstName = new char[15];
-        LastName = new char[15];
-        userFriends = new Friends * [1];
-        for (int i = 0; i < 1; i++)
+        userFriends = new Friends * [5];
+        for (int i = 0; i < 5; i++)
         {
             userFriends[i] = new Friends[5];
         }
-        userLikedPage = new Page * [1];
-        for (int i = 0; i < 1; i++)
+        userLikedPage = new Page * [5];
+        for (int i = 0; i < 5; i++)
         {
             userLikedPage[i] = new Page[5];
         }
     }
     User() {
+        std::cout << "2D Array Intialized\n";
         init();
+        userID = "";
+        firstName = "";
+        LastName = "";
     }
-    User(char* id, char* fname, char* lname, Friends **f, Page** p) {
+    User(std::string id, std::string fname, std::string lname, Friends **f, Page** p) {
         init();
-        // strcpy_s(userID, 3, id);
-        // strcpy_s(firstName, 15, fname);
-        // strcpy_s(LastName, 15, lname);
-        for (int i = 0; i < 1; i++)
-        {
+        userID = id;
+        firstName = fname;
+        LastName = lname;
+        for(int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++)
             {
-                char* friendID = new char[3];
-                friendID = f[i][j].getFriend();
-                userFriends[i][j].setFriendId(friendID);
-                delete[] friendID;
+                userFriends[i][j].setFriendId(f[i][j].getFriend());
             }
         }
-        for (int i = 0; i < 1; i++)
-        {
+        for(int i = 0; i < 5; i++){
             for (int j = 0; j < 5; j++)
             {
-                char* id = new char[5];
-                char* title = new char[50];
-                char* post = new char[70];
-                // strcpy_s(id, 5, p[i][j].getPageID());
-                // strcpy_s(title, 50, p[i][j].getPageTitle());
-                // strcpy_s(post, 70, p[i][j].getPagePost());
-                userLikedPage[i][j].setPageData(id,title, post);
-                delete[] title;
-                delete[] post;
+                userLikedPage[i][j].setID(p[i][j].getPageID());
             }
         }
     }
 
-    void setUserData(char* id, char* fname, char* lname, Friends** f, Page** p) {
-        init();
-        // strcpy_s(userID, 3, id);
-        // strcpy_s(firstName, 15, fname);
-        // strcpy_s(LastName, 15, lname);
-        for (int i = 0; i < 1; i++)
-        {
-            for (int j = 0; j < 5; j++)
+    void setUserData(std::string id, std::string fname, std::string lname, Friends **f, Page** p) {
+        int i = 0;
+        int j = 0;
+        userID = id;
+        firstName = fname;
+        LastName = lname;
+        for(; i < 5; i++) {
+            for (; j < 5; j++)
             {
-                char* friendID = new char[3];
-                friendID = f[i][j].getFriend();
-                userFriends[i][j].setFriendId(friendID);
-                delete[] friendID;
+                userFriends[i][j].setFriendId(f[i][j].getFriend());
             }
         }
-        for (int i = 0; i < 1; i++)
-        {
-            for (int j = 0; j < 5; j++)
+
+        int a = 0, b = 0;
+        for(; a < 5; a++){
+            for (; b < 5; b++)
             {
-                char* id = new char[5];
-                char* title = new char[50];
-                char* post = new char[70];
-                // strcpy(id, 5, p[i][j].getPageID());
-                // strcpy(title, 50, p[i][j].getPageTitle());
-                // strcpy(post, 70, p[i][j].getPagePost());
-                userLikedPage[i][j].setPageData(id, title, post);
-                delete[] title;
-                delete[] post;
+                userLikedPage[a][b].setID(p[a][b].getPageID());
             }
         }
     }
+
+    void setUserId(std::string id){
+        userID = id;
+    }
+
+    void setFirstName(std::string fname){
+        firstName = fname;
+    }
+
+    void setLastName(std::string lname){
+        LastName = lname;
+    }
+
+    void setFriendId(Friends **f){
+        int i = 0;
+        int j = 0;
+        for(; i < i + 1; i++) {
+            for (; j < j + 1; j++)
+            {
+                if(j == 4){
+                    break;
+                }
+                userFriends[i][j].setFriendId(f[i][j].getFriend());
+            }
+        }
+    }
+
+    void setPageId(Page** p){
+        int a = 0, b = 0;
+        for(; a + 1; a++){
+            for (; b + 1; b++)
+            {
+                if(b == 4){
+                    break;
+                }
+                userLikedPage[a][b].setID(p[a][b].getPageID());
+            }
+        }
+    }
+
     void print() {
         std::cout << userID << std::endl;
         std::cout << firstName << std::endl;
         std::cout << LastName << std::endl;
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 5; i++)
         {
             for (int j = 0; j < 5; j++)
             {
                 std::cout << userFriends[i][j].getFriend() << std::endl;
             }
         }
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 5; i++)
         {
             for (int j = 0; j < 5; j++)
             {
@@ -186,9 +188,6 @@ public:
     }
 
     ~User() {
-        delete[] userID;
-        delete[] firstName;
-        delete[] LastName;
         for (int i = 0; i < 1; i++)
         {   
             delete[] userFriends[i];
@@ -201,73 +200,19 @@ public:
 };
 
 int main() {
-    //char* p = new char[3];
-    //p[0] = 'u';
-    //p[1] = '1';
-    //p[2] = '\0';
-    //char fname[] = "Abdurehman";
-    //char lname[] = "Saleemi";
-    //char* fn = new char[15];
-    //char* ln = new char[15];
-    //strcpy_s(fn, 15, fname);
-    //strcpy_s(ln, 15, lname);
-
-    //Friends** f;
-    //f = new Friends * [1];
-    //for (int i = 0; i < 1; i++)
-    //{
-    //    f[i] = new Friends[5];
-    //}
-    //for (int i = 0; i < 1; i++)
-    //{
-    //    for (int j = 0; j < 5; j++)
-    //    {
-    //        char* p = new char[5];
-    //        p[0] = 'u';
-    //        p[1] = '1';
-    //        p[2] = '\0';
-    //        f[i][j].setFriendId(p);
-    //        delete[] p;
-    //    }
-    //}
-
-    //Page** page;
-    //page = new Page * [1];
-    //for (int i = 0; i < 1; i++)
-    //{
-    //    page[i] = new Page[5];
-    //}
-    //for (int i = 0; i < 1; i++)
-    //{
-    //    for (int j = 0; j < 5; j++)
-    //    {
-    //        char _tite[] = "AlJazeera";
-    //        char post_[] = "Today Pakistan Stock Market went up by 500 points";
-    //        char* title = new char[50];
-    //        char* post = new char[70];
-    //        strcpy_s(title, 50, _tite);
-    //        strcpy_s(post, 70, post_);
-    //        page[i][j].setPageData(title, post);
-    //        delete[] title;
-    //        delete[] post;
-    //    }
-    //}
-
-   /* User u(p, fn, ln, f, page);
-    u.print();*/
     std::ifstream dataRead;
     dataRead.open("Data/user.txt");
 
     int totalUsers;
 
     Friends** f;
-    f = new Friends * [20];
-    for (int i = 0; i < 1; i++)
+    f = new Friends * [5];
+    for (int i = 0; i < 5; i++)
     {
         f[i] = new Friends[5];
     }
-    Page** p = new Page * [20];
-    for (int i = 0; i < 1; i++)
+    Page** p = new Page * [5];
+    for (int i = 0; i < 5; i++)
     {
         p[i] = new Page[5];
     }
@@ -277,28 +222,46 @@ int main() {
     User* u = new User[totalUsers];
     std::cout << totalUsers << std::endl;
 
+    int userIndex = 0;
+
     int i = 0;
     int j = 0;
-    char* usrID = new char[5];
-    char* usrFname = new char[15];
-    char* usrLname = new char[15];
+    int k = 0, l = 0;
+    // char* usrID = new char[5];
+    // char* usrFname = new char[15];
+    // char* usrLname = new char[15];
+    std::string usrID;
+    std::string usrFname;
+    std::string usrLname;
     std::string friendID;
     std::string pageID;
 
     while (!dataRead.eof()) {
+        i = 0, j = 0, k = 0, l = 0;
         check = true;
-        dataRead.getline(usrID, 5, ' ');
-        std::cout << usrID << " ";
-        dataRead.getline(usrFname, 15, ' ');
-        std::cout << usrFname << " ";
-        dataRead.getline(usrLname, 15, ' ');
-        std::cout << usrLname << " ";
+        dataRead >> usrID;
+        //std::cout << usrID << " ";
+        dataRead >> usrFname;
+        //std::cout << usrFname << " ";
+        dataRead >> usrLname;
+        //std::cout << usrLname << " ";
+
+        u[userIndex].setUserId(usrID);
+        u[userIndex].setFirstName(usrFname);
+        u[userIndex].setLastName(usrLname);
+
         while (check) {
             dataRead >> friendID;
             if (friendID == "-1") {
                 check = false;
             }
-            std::cout << friendID << " ";
+            while(i < i + 1){
+                while(j < j + 1){
+                    f[i][j].setFriendId(friendID);
+                    j++;
+                }
+                i++;
+            }
         }
         check = true;
         while (check) {
@@ -306,9 +269,20 @@ int main() {
             if (pageID == "-1") {
                 check = false;
             }
-            std::cout << pageID << " ";
+            //std::cout << pageID << " ";
+            while(k < k + 1){
+                while(l < l + 1){
+                    f[k][l].setFriendId(friendID);
+                    l++;
+                }
+                k++;
+            }
         }
-        //std::cout << std::endl;
+    }
+
+    for (int i = 0; i < 20; i++)
+    {
+        u[i].print();
     }
     return 0;
 }
